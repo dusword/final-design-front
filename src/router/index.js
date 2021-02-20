@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Page1 from '../views/Page1'
-import Page2 from '../views/Page2'
+import UserManage from '../views/UserManage'
+import UserAdd from '../views/UserAdd'
 import Page3 from '../views/Page3'
 import Page4 from '../views/Page4'
 import Index from '../views/Index'
@@ -11,19 +11,19 @@ Vue.use(VueRouter)
 const  routes = [
     {
         path: "/",
-        name: "导航1",
+        name: "用户管理",
         component: Index,
-        redirect:"/page1",
+        redirect:"/UserManage",
         children: [
             {
-                path: "/page1",
-                name: "页面1",
-                component: Page1
+                path: "/userManage",
+                name: "用户查询",
+                component: UserManage
             },
             {
-                path: "/page2",
-                name: "页面2",
-                component: Page2,
+                path: "/userAdd",
+                name: "用户添加",
+                component: UserAdd
             },
         ]
     },
