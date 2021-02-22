@@ -51,11 +51,11 @@ export default {
           object['user_PASSWORD'] = this.ruleForm.user_PASSWORD;
 
 
-          const data = JSON.stringify(object);
-          console.log(data)
+          const json = JSON.stringify(object);
+          console.log(json)
           console.log(this.ruleForm)
           alert('submit!');
-          axios.post("http://localhost:8081/user/saveUser",data).then(function (response){
+          axios.post("http://localhost:8081/user/saveUser",json).then(function (response){
             console.log(response)
           })
         } else {
