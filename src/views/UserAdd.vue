@@ -11,6 +11,7 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button @click="test()">测试</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -19,18 +20,12 @@
 
 <script>
 export default {
-  name: "Page2",
+  name: "UserAdd",
   data() {
     return {
       ruleForm: {
         user_NAME: '',
         user_PASSWORD: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
       },
       rules: {
         user_NAME: [
@@ -57,6 +52,10 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    test(){
+      console.log("This is a test!")
+      console.log(this.ruleForm)
     }
   }
 }
