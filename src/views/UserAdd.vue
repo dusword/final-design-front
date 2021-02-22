@@ -41,9 +41,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      const _this=this
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
+          const object = {};
+
+          object['user_NAME'] = this.ruleForm.user_NAME;
+          object['user_PASSWORD'] = this.ruleForm.user_PASSWORD;
+
+
+          const data = JSON.stringify(object);
+          console.log(data)
+          console.log(this.ruleForm)
           alert('submit!');
+          axios.post("http://localhost:8081/user/saveUser",data).then(function (response){
+            console.log(response)
+          })
         } else {
           console.log('error submit!!');
           return false;
