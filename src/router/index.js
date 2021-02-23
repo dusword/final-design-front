@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import UserManage from '../views/UserManage'
 import UserAdd from '../views/UserAdd'
-import Page3 from '../views/Page3'
+import Test from '../views/Test'
 import Page4 from '../views/Page4'
 import Index from '../views/Index'
 
@@ -33,9 +33,9 @@ const  routes = [
         component: Index,
         children: [
             {
-                path: "/page3",
-                name: "页面3",
-                component: Page3
+                path: "/test",
+                name: "Test",
+                component: Test
             },
             {
                 path: "/page4",
