@@ -44,18 +44,19 @@ export default {
       const _this=this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-
-          const object = {};
-
-          object['user_NAME'] = this.ruleForm.user_NAME;
-          object['user_PASSWORD'] = this.ruleForm.user_PASSWORD;
-
-
-          const json = JSON.stringify(object);
-          console.log(json)
-          console.log(this.ruleForm)
-          alert('submit!');
-          axios.post("http://localhost:8081/user/saveUser",json).then(function (response){
+          const objectUser = {};
+          objectUser['user_NAME'] = this.ruleForm.user_NAME;
+          objectUser['user_PASSWORD'] = this.ruleForm.user_PASSWORD;
+          const  user = JSON.stringify(objectUser);
+          console.log(user);
+          axios.post(
+              "http://localhost:8081/user/saveUser",
+              user,
+              {
+            headers: {
+              'Content-Type': 'application/json;charset=UTF-8'
+            }
+          }).then(function (response){
             console.log(response)
           })
         } else {

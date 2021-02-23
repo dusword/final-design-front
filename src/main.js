@@ -5,7 +5,8 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 
-// axios.defaults.headers.post['contentType']='application/json;charset=UTF-8';
+
+// axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
 Vue.config.productionTip = false
 
 new Vue({
