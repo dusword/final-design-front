@@ -1,5 +1,5 @@
 <template>
-  <div id="userManage">0
+  <div id="userManage">
     <el-pagination
         background
         layout="prev, pager, next"

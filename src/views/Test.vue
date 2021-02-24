@@ -49,16 +49,6 @@ export default {
         PageFirstRowNumber:0,
         PageRowNumber:3,
       },
-      // rules: {
-      //   user_NAME: [
-      //     {required: true, message: '请输入用户名', trigger: 'blur'},
-      //     {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
-      //   ],
-      //   user_PASSWORD: [
-      //     {required: true, message: '请输入密码', trigger: 'blur'},
-      //     {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
-      //   ],
-      // }
     };
   },
   methods: {
@@ -81,6 +71,16 @@ export default {
 
           const  json = JSON.stringify(object);
           console.log(json);
+          axios.post(
+              "http://localhost:8081/result/saveResult",
+              json,
+              {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8'
+                }
+              }).then(function (response){
+            console.log(response)
+          })
         } else {
           console.log('error submit!!');
           return false;

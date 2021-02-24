@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 import UserManage from '../views/UserManage'
 import UserAdd from '../views/UserAdd'
 import Test from '../views/Test'
-import Page4 from '../views/Page4'
+import ResultSend from '../views/ResultSend'
 import Index from '../views/Index'
+import Testtest from "../views/Testtest"
 
 Vue.use(VueRouter)
 
@@ -38,9 +39,14 @@ const  routes = [
                 component: Test
             },
             {
-                path: "/page4",
-                name: "页面4",
-                component: Page4
+                path: "/resultSend",
+                name: "ResultSend",
+                component: ResultSend
+            },
+            {
+                path: "/testtest",
+                name: "Testtest",
+                component: Testtest
             },
         ]
     }
