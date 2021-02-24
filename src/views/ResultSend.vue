@@ -1,6 +1,12 @@
 <template>
   <div id="resultSend">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+    <el-form :model="ruleForm" :ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button @click="test()">测试</el-button>
+      </el-form-item>
+
       <el-form-item label="errmsg" prop="errmsg">
         <el-input v-model="ruleForm.errmsg"></el-input>
       </el-form-item>
@@ -77,12 +83,6 @@
         <el-input v-model="ruleForm.result.infolist.subtypeofsubtype"></el-input>
       </el-form-item>
 
-
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-        <el-button @click="test()">测试</el-button>
-      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -194,8 +194,44 @@ export default {
       this.$refs[formName].resetFields();
     },
     test() {
-      console.log("This is a test!")
-      console.log(this.ruleForm)
+      const object = {};
+      const objectresult ={};
+      const objectrsppageinfo={};
+      const objectinfolist={};
+      const objectresitemv1={};
+
+      object['errmsg']=this.ruleForm.errmsg;
+      object['errcode']=this.ruleForm.errcode;
+      object['result']=this.ruleForm.result;
+      objectresult['rsppageinfo']=this.ruleForm.result.rsppageinfo;
+      objectrsppageinfo['totalrownum']=this.ruleForm.result.rsppageinfo.totalrownum;
+      objectrsppageinfo['rownum']=this.ruleForm.result.rsppageinfo.rownum;
+      objectresult['infolist']=this.ruleForm.result.infolist;
+      objectinfolist['reserve']=this.ruleForm.result.infolist.reserve;
+      objectinfolist['resbindcode']=this.ruleForm.result.infolist.resbindcode;
+      objectinfolist['isbind']=this.ruleForm.result.infolist.isbind;
+      objectinfolist['iscamincomplexipc']=this.ruleForm.result.infolist.iscamincomplexipc;
+      objectinfolist['resattribute']=this.ruleForm.result.infolist.resattribute;
+      objectinfolist['issuperipc']=this.ruleForm.result.infolist.issuperipc;
+      objectinfolist['orgname']=this.ruleForm.result.infolist.orgname;
+      objectinfolist['resitemv1']=this.ruleForm.result.infolist.resitemv1;
+      objectresitemv1['rescode']=this.ruleForm.result.infolist.resitemv1.rescode;
+      objectresitemv1['resextstatus']=this.ruleForm.result.infolist.resitemv1.resextstatus;
+      objectresitemv1['orgcode']=this.ruleForm.result.infolist.resitemv1.orgcode;
+      objectresitemv1['resstatus']=this.ruleForm.result.infolist.resitemv1.resstatus;
+      objectresitemv1['resisbeshare']=this.ruleForm.result.infolist.resitemv1.resisbeshare;
+      objectresitemv1['resisforeign']=this.ruleForm.result.infolist.resitemv1.resisforeign;
+      objectresitemv1['streamnum']=this.ruleForm.result.infolist.resitemv1.streamnum;
+      objectresitemv1['resname']=this.ruleForm.result.infolist.resitemv1.resname;
+      objectresitemv1['ressubtype']=this.ruleForm.result.infolist.resitemv1.ressubtype;
+      objectresitemv1['restype']=this.ruleForm.result.infolist.resitemv1.restype;
+      objectinfolist['hasbrdsubres']=this.ruleForm.result.infolist.hasbrdsubres;
+      objectinfolist['devencodeset']=this.ruleForm.result.infolist.devencodeset;
+      objectinfolist['voicestatus']=this.ruleForm.result.infolist.voicestatus;
+      objectinfolist['subtypeofsubtype']=this.ruleForm.result.infolist.subtypeofsubtype;
+
+      const  json = JSON.stringify(object);
+      console.log(json);
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div id="userManage">
     <el-pagination
+        style="height: 30px;float: left"
         background
         layout="prev, pager, next"
         page-size="6"
