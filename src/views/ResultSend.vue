@@ -1,5 +1,6 @@
 <template>
   <div id="resultSend">
+    <el-button type="text" @click="open">点击打开 Message Box</el-button>
     <el-form :model="ruleForm" :ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
@@ -130,6 +131,17 @@ export default {
     };
   },
   methods: {
+    open() {
+      this.$alert('这是一段内容', '标题名称', {
+        confirmButtonText: '确定',
+        callback: action => {
+          this.$message({
+            type: 'info',
+            message: `action: ${action}`
+          });
+        }
+      })
+    },
     submitForm(formName) {
       const _this = this
       this.$refs[formName].validate((valid) => {

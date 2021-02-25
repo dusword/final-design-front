@@ -4,11 +4,10 @@
       <el-aside width="200px" style="background-color: rgb(238,241,246)">
 
         <el-menu router="router" :default-active="$route.path">
-          <el-submenu v-for="(route,index) in $router.options.routes" :index="index+''">
+          <el-submenu v-for="(route) in $router.options.routes" :key="route.path" :index="route.path">
             <template slot="title"><i class="el-icon-message"></i>{{ route.name }}</template>
-            <el-menu-item v-for="(child) in route.children" :index="child.path">{{ child.name }}</el-menu-item>
+            <el-menu-item v-for="(child) in route.children"  :key="child.path" :index="child.path">{{ child.name }}</el-menu-item>
           </el-submenu>
-
         </el-menu>
       </el-aside>
 
