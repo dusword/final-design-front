@@ -1,7 +1,6 @@
 <template>
   <div id="resultSend">
-    <el-button type="text" @click="open">点击打开 Message Box</el-button>
-    <el-form :model="ruleForm" :ref="ruleForm" label-width="150px" class="demo-ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -128,22 +127,16 @@ export default {
           }
         },
       },
-    };
+      rules: {
+        errmsg: [
+          { required: false, message: '请输入活动名称', trigger: 'blur' },
+          { min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur' }
+        ],
+      }
+    }
   },
   methods: {
-    open() {
-      this.$alert('这是一段内容', '标题名称', {
-        confirmButtonText: '确定',
-        callback: action => {
-          this.$message({
-            type: 'info',
-            message: `action: ${action}`
-          });
-        }
-      })
-    },
     submitForm(formName) {
-      const _this = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const object = {};
