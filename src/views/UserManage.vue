@@ -9,13 +9,16 @@
         @current-change="page">
     </el-pagination>
     <el-table
+        height="800px"
         :data="tableData"
         border
+        max-height="800"
         style="width: 100%">
       <el-table-column
           fixed
           prop="user_ID"
           label="ID"
+          style="height: auto"
           width="150">
       </el-table-column>
       <el-table-column

@@ -6,7 +6,7 @@
         <el-menu router="router" :default-active="$route.path">
           <el-submenu v-for="(route,index) in $router.options.routes" :index="index+''">
             <template slot="title"><i class="el-icon-message"></i>{{ route.name }}</template>
-            <el-menu-item v-for="(child,index2) in route.children" :index="child.path">{{ child.name }}</el-menu-item>
+            <el-menu-item v-for="(child) in route.children" :index="child.path">{{ child.name }}</el-menu-item>
           </el-submenu>
 
         </el-menu>
@@ -40,37 +40,46 @@ export default {
 </script>
 
 <style scoped>
-.el-header, .el-footer {
+.el-header {
   background-color: #B3C0D1;
   color: #333;
-  text-align: center;
   line-height: 60px;
 }
 
 .el-aside {
-  background-color: #D3DCE6;
   color: #333;
-  text-align: center;
-  line-height: 200px;
 }
+/*.el-header, .el-footer {*/
+/*  background-color: #B3C0D1;*/
+/*  color: #333;*/
+/*  text-align: center;*/
+/*  line-height: 60px;*/
+/*}*/
 
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
+/*.el-aside {*/
+/*  background-color: #D3DCE6;*/
+/*  color: #333;*/
+/*  text-align: center;*/
+/*  line-height: 200px;*/
+/*}*/
 
-body > .el-container {
-  margin-bottom: 40px;
-}
+/*.el-main {*/
+/*  background-color: #E9EEF3;*/
+/*  color: #333;*/
+/*  text-align: center;*/
+/*  line-height: 160px;*/
+/*}*/
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
+/*body > .el-container {*/
+/*  margin-bottom: 40px;*/
+/*}*/
 
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
+/*.el-container:nth-child(5) .el-aside,*/
+/*.el-container:nth-child(6) .el-aside {*/
+/*  line-height: 260px;*/
+/*}*/
+
+/*.el-container:nth-child(7) .el-aside {*/
+/*  line-height: 320px;*/
+/*}*/
 </style>
