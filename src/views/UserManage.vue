@@ -19,17 +19,17 @@
           prop="user_ID"
           label="ID"
           style="height: auto"
-          width="150">
+          width="100">
       </el-table-column>
       <el-table-column
           prop="user_NAME"
           label="用户名"
-          width="500">
+          width="300">
       </el-table-column>
       <el-table-column
           prop="user_PASSWORD"
           label="密码"
-          width="300">
+          width="200">
       </el-table-column>
       <el-table-column
           fixed="right"
