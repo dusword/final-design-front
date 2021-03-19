@@ -1,17 +1,13 @@
 <template>
   <el-upload
-      ref="upload"
-      :limit="1"
-      :auto-upload="false"
-      :file-list="fileList"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :on-success="handleSuccess"
+      class="upload-demo"
+      drag
       action="http://localhost:8082/upload_image"
-      class="upload-demo">
-    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-    <el-button size="small" style="margin-left: 10px;" type="success" @click="submitUpload">上传到服务器</el-button>
-    <div slot="tip" class="el-upload__tip">只能上传1个jpg/png文件</div>
+      :on-success="handleSuccess"
+      multiple>
+    <i class="el-icon-upload"></i>
+    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+    <div class="el-upload__tip" slot="tip">只能上传1张jpg文件</div>
   </el-upload>
 
 </template>
@@ -27,15 +23,10 @@ export default {
   methods: {
     handleSuccess(response){
       console.log(response)
-      this.$message.success('图片上传成功')
+      this.$message.success('图片分析成功'+response)
     },
     submitUpload() {
       this.$refs.upload.submit();
-      // let formData = new FormData();
-      // formData.append('file', this.file);
-      // this.$axios.post('http://localhost:8082/upload_image', formData).then(function (response) {
-      //   console.log(response);
-      // })
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
