@@ -72,7 +72,7 @@ export default {
           const  json = JSON.stringify(object);
           console.log(json);
           axios.post(
-              "http://localhost:8081/result/saveResult",
+              "http://152.136.120.171:8082/result/saveResult",
               json,
               {
                 headers: {
