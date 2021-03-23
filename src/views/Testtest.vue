@@ -3,7 +3,7 @@
   <el-upload
       class="upload-demo"
       drag
-      action="http://localhost:8082/upload_image"
+      action="http://152.136.120.171:5000/upload_image"
       :on-success="handleSuccess"
       multiple>
     <i class="el-icon-upload"></i>
@@ -15,10 +15,10 @@
   <el-dialog
       title="分析结果"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="60%"
       :before-close="handleClose">
     <span></span>
-    <img :src="base64" alt="图片未上传" />
+    <img :src="base64" alt="图片未上传" style="position: center"/>
     <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -37,7 +37,7 @@ export default {
       fileList: [],
       dialogVisible: false,
       response:null,
-      base64:null
+      base64:null,
     };
   },
   methods: {
