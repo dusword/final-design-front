@@ -50,7 +50,7 @@ export default {
           const  user = JSON.stringify(objectUser);
           console.log(user);
           axios.post(
-              "http://152.136.120.171:8082/user/saveUser",
+              this.GLOBAL.BASE_URL+':8082/user/saveUser',
               user,
               {
             headers: {

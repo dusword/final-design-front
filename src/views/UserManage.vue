@@ -55,7 +55,7 @@ export default {
     },
     page(currentPage) {
       const _this = this
-      axios.get('http://152.136.120.171:8082/user/findAll/' + currentPage + '/6').then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL+'8082/user/findAll/' + currentPage + '/6').then(function (response) {
         console.log(response)
         _this.total = response.data.totalElements
         _this.tableData = response.data.content
@@ -64,7 +64,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get("http://152.136.120.171:8082/user/findAll/1/6").then(function (response) {
+    axios.get(this.GLOBAL.BASE_URL+':8082/user/findAll/1/6').then(function (response) {
       console.log(response)
       _this.total = response.data.totalElements
       _this.tableData = response.data.content
