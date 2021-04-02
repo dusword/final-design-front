@@ -6,6 +6,7 @@ import Test from '../views/Test'
 import ResultSend from '../views/ResultSend'
 import Index from '../views/Index'
 import Testtest from "../views/Testtest"
+import Login from "../views/Login";
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const  routes = [
                 path: "/testtest",
                 name: "Testtest",
                 component: Testtest
+            },
+            {
+                path: "/login",
+                name: "Login",
+                component: Login
             },
         ]
     }

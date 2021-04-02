@@ -55,7 +55,7 @@ export default {
     },
     page(currentPage) {
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL+'8082/user/findAll/' + currentPage + '/6').then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL+':8082/user/findAll/' + currentPage + '/6').then(function (response) {
         console.log(response)
         _this.total = response.data.totalElements
         _this.tableData = response.data.content
