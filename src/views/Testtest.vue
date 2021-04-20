@@ -3,7 +3,7 @@
   <el-upload
       class="upload-demo"
       drag
-      action="http://152.136.120.171:5000/upload_image"
+      action="http://localhost:5000/upload_image"
       :on-success="handleSuccess"
       multiple>
     <i class="el-icon-upload"></i>
@@ -34,6 +34,7 @@ export default {
   name: "Testtest",
   data() {
     return {
+      responseList:[],
       fileList: [],
       dialogVisible: false,
       response:null,
@@ -42,11 +43,14 @@ export default {
   },
   methods: {
     handleSuccess(response) {
+      const _this = this;
+      this.responseList=response.data;
       console.log(response)
       this.$message.success('图片分析成功')
       this.$data.dialogVisible = true
       this.$data.response=response
-      this.$data.base64="data:image/jpeg;base64,"+response
+      console.log(response.base64_result)
+      this.$data.base64="data:image/jpeg;base64,"+response.base64_result
     },
     submitUpload() {
       this.$refs.upload.submit();
