@@ -3,7 +3,7 @@
   <el-upload
       class="upload-demo"
       drag
-      action="http://localhost:5000/upload_image"
+      action="http://localhost:8082/predict/onePic"
       :on-success="handleSuccess"
       multiple>
     <i class="el-icon-upload"></i>
