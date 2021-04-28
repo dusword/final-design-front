@@ -5,7 +5,7 @@ import UserAdd from '../views/UserAdd'
 import Test from '../views/Test'
 import ResultSend from '../views/ResultSend'
 import Index from '../views/Index'
-import Testtest from "../views/Testtest"
+import PredictOne from "../views/PredictOne"
 import Login from "../views/Login";
 
 Vue.use(VueRouter)
@@ -45,9 +45,9 @@ const  routes = [
                 component: ResultSend
             },
             {
-                path: "/testtest",
-                name: "Testtest",
-                component: Testtest
+                path: "/predictOne",
+                name: "PredictOne",
+                component: PredictOne
             },
             {
                 path: "/login",

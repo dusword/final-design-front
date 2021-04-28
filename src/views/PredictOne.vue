@@ -4,6 +4,8 @@
         class="upload-demo"
         drag
         action="http://localhost:8082/predict/onePic"
+        :data="{userId:userIdCode}"
+        :headers="myHeaders"
         :on-success="handleSuccess"
         multiple>
       <i class="el-icon-upload"></i>
@@ -42,10 +44,13 @@
 </template>
 
 <script>
+const token =  localStorage.getItem('token')
 export default {
-  name: "Testtest",
+  name: "PredictOne",
   data() {
     return {
+      userIdCode:740064395,
+      myHeaders: {Authorization: token},
       responseList: [],
       fileList: [],
       dialog1Visible: false,
