@@ -102,10 +102,6 @@ export default {
       }
     },
     virtualLogin() {
-      this.$store.dispatch("userLogin", true);
-      //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
-      //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
-      localStorage.setItem("Flag", "isLogin");
     },
     virtualLogout() {
       localStorage.removeItem("Flag")
@@ -152,13 +148,15 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.loginForm.rememberMe) {
-            Cookies.set('username', this.loginForm.user_NAME, {expires: 30})
-            Cookies.set('password', this.loginForm.user_PASSWORD, {expires: 30})
-            Cookies.set('rememberMe', this.loginForm.rememberMe, {expires: 30})
+            Cookies.set('username1', this.loginForm.user_NAME, {expires: 30})
+            Cookies.set('password1', this.loginForm.user_PASSWORD, {expires: 30})
+            Cookies.set('rememberMe1', this.loginForm.rememberMe, {expires: 30})
+            console.log("cookie set")
           } else {
-            Cookies.remove('username')
-            Cookies.remove('password')
-            Cookies.remove('rememberMe')
+            Cookies.remove('username1')
+            Cookies.remove('password1')
+            Cookies.remove('rememberMe1')
+            console.log("cookie removed")
           }
           const objectUser = {};
           objectUser['userName'] = this.loginForm.user_NAME;
@@ -172,10 +170,19 @@ export default {
                 headers: {
                   'Content-Type': 'application/json;charset=UTF-8'
                 }
-              }).then(function (response) {
+              }).then((response)=> {
             console.log(response)
+            if (response.data === 1){
+              this.$store.dispatch("userLogin", true);
+              //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
+              //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
+              localStorage.setItem("Flag", "isLogin");
+              _this.$message("登陆成功！")
+              _this.$data.dialog1Visible=false;
+            }
           })
         } else {
+          _this.$message("登陆失败！")
           console.log('error submit!!');
           return false;
         }
