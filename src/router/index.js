@@ -15,39 +15,54 @@ const  routes = [
         path: "/",
         name: "用户管理",
         component: Index,
-        redirect:"/UserManage",
+        redirect:"/login",
         children: [
             {
                 path: "/userManage",
                 name: "用户查询",
-                component: UserManage
+                component: UserManage,
+                meta: {
+                    isLogin: true
+                }
             },
             {
                 path: "/userAdd",
                 name: "用户添加",
-                component: UserAdd
+                component: UserAdd,
+                meta: {
+                    isLogin: false
+                }
             },
         ]
     },
     {
         path: "/navigation",
-        name: "导航2",
+        name: "图片检测",
         component: Index,
         children: [
             {
                 path: "/test",
                 name: "Test",
-                component: Test
+                component: Test,
+                meta: {
+                    isLogin: true
+                }
             },
             {
                 path: "/resultSend",
                 name: "ResultSend",
-                component: ResultSend
+                component: ResultSend,
+                meta: {
+                    isLogin: true
+                }
             },
             {
                 path: "/predictOne",
-                name: "PredictOne",
-                component: PredictOne
+                name: "快速检测",
+                component: PredictOne,
+                meta: {
+                    isLogin: true
+                }
             },
             {
                 path: "/login",

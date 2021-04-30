@@ -9,7 +9,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('loginForm')">添加</el-button>
+        <el-button type="primary" @click="submitForm('loginForm')">注册</el-button>
         <el-button @click="resetForm('loginForm')">重置</el-button>
         <el-button @click="test()">测试</el-button>
         <el-checkbox v-model="loginForm.rememberMe" label="记住我" class="rememberMe"></el-checkbox>

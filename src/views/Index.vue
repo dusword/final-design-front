@@ -6,7 +6,10 @@
         <el-menu router="router" :default-active="$route.path">
           <el-submenu v-for="(route) in $router.options.routes" :key="route.path" :index="route.path">
             <template slot="title"><i class="el-icon-message"></i>{{ route.name }}</template>
-            <el-menu-item v-for="(child) in route.children"  :key="child.path" :index="child.path">{{ child.name }}</el-menu-item>
+            <el-menu-item v-for="(child) in route.children" :key="child.path" :index="child.path">{{
+                child.name
+              }}
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -14,18 +17,45 @@
       <el-container style="color: #eeeeee;">
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
+            <i class="el-icon-setting" style="margin-right: 15px">登录选项</i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item>
+                <el-button type="primary" style="margin: 5px" @click="dialog1Visible = true">登录</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button type="primary" style="margin: 5px" @click="virtualLogout()">登出</el-button>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>lxj</span>
         </el-header>
 
         <el-main>
           <router-view></router-view>
+          <el-dialog
+              title="登录界面"
+              :visible.sync="dialog1Visible"
+              width="60%"
+              :before-close="handleClose">
+            <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="demo-ruleForm">
+              <el-form-item label="用户名" prop="user_NAME">
+                <el-input v-model="loginForm.user_NAME"></el-input>
+              </el-form-item>
+              <el-form-item label="密码" prop="user_PASSWORD">
+                <el-input v-model="loginForm.user_PASSWORD"></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('loginForm')">注册</el-button>
+                <el-button @click="resetForm('loginForm')">重置</el-button>
+                <el-button @click="test()">测试</el-button>
+                <el-checkbox v-model="loginForm.rememberMe" label="记住我" class="rememberMe"></el-checkbox>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="dialog1Visible=false">取 消</el-button>
+    <el-button type="primary" @click="dialog1Visible=false">确 定</el-button>
+  </span>
+          </el-dialog>
         </el-main>
       </el-container>
     </el-container>
@@ -34,7 +64,93 @@
 
 <script>
 export default {
-  name: "Index"
+  name: "Index",
+  created() {
+    this.getCookie();
+  },
+  data() {
+    return {
+      dialog1Visible: false,
+      loginForm: {
+        user_NAME: '',
+        user_PASSWORD: '',
+        rememberMe: false,
+      },
+      rules: {
+        user_NAME: [
+          {required: true, message: '请输入用户名', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
+        ],
+        user_PASSWORD: [
+          {required: true, message: '请输入密码', trigger: 'blur'},
+          {min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur'}
+        ],
+      }
+    };
+  },
+  methods: {
+    getCookie() {
+      const username = Cookies.get('username')
+      const password = Cookies.get('password')
+      const rememberMe = Cookies.get('rememberMe')
+      this.loginForm = {
+        user_NAME: username === undefined ? this.loginForm.user_NAME : username,
+        user_PASSWORD: password === undefined ? this.loginForm.user_PASSWORD : password,
+        rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
+      }
+    },
+    virtualLogin() {
+      this.$store.dispatch("userLogin", true);
+      //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
+      //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
+      localStorage.setItem("Flag", "isLogin");
+    },
+    virtualLogout() {
+      localStorage.removeItem("Flag")
+    },
+    submitForm(formName) {
+      const _this = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.loginForm.rememberMe) {
+            Cookies.set('username', this.loginForm.user_NAME, {expires: 30})
+            Cookies.set('password', this.loginForm.user_PASSWORD, {expires: 30})
+            Cookies.set('rememberMe', this.loginForm.rememberMe, {expires: 30})
+          } else {
+            Cookies.remove('username')
+            Cookies.remove('password')
+            Cookies.remove('rememberMe')
+          }
+          const objectUser = {};
+          objectUser['user_NAME'] = this.loginForm.user_NAME;
+          objectUser['user_PASSWORD'] = this.loginForm.user_PASSWORD;
+          const user = JSON.stringify(objectUser);
+          console.log(user);
+          axios.post(
+              this.GLOBAL.BASE_URL + ':8082/user/saveUser',
+              user,
+              {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8'
+                }
+              }).then(function (response) {
+            console.log(response)
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    test() {
+      this.virtualLogin()
+      console.log("This is a test!")
+      console.log(this.loginForm)
+    }
+  }
 }
 </script>
 
@@ -48,6 +164,7 @@ export default {
 .el-aside {
   color: #333;
 }
+
 /*.el-header, .el-footer {*/
 /*  background-color: #B3C0D1;*/
 /*  color: #333;*/
