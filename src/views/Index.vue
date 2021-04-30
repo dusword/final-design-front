@@ -43,9 +43,9 @@
               <el-form-item label="密码" prop="user_PASSWORD">
                 <el-input v-model="loginForm.user_PASSWORD"></el-input>
               </el-form-item>
-
               <el-form-item>
-                <el-button type="primary" @click="submitForm('loginForm')">注册</el-button>
+                <el-button type="primary" @click="submitForm1('loginForm')">注册</el-button>
+                <el-button type="primary" @click="submitForm2('loginForm')">登录</el-button>
                 <el-button @click="resetForm('loginForm')">重置</el-button>
                 <el-button @click="test()">测试</el-button>
                 <el-checkbox v-model="loginForm.rememberMe" label="记住我" class="rememberMe"></el-checkbox>
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   name: "Index",
   created() {
@@ -90,9 +92,9 @@ export default {
   },
   methods: {
     getCookie() {
-      const username = Cookies.get('username')
-      const password = Cookies.get('password')
-      const rememberMe = Cookies.get('rememberMe')
+      const username = Cookies.get('username1')
+      const password = Cookies.get('password1')
+      const rememberMe = Cookies.get('rememberMe1')
       this.loginForm = {
         user_NAME: username === undefined ? this.loginForm.user_NAME : username,
         user_PASSWORD: password === undefined ? this.loginForm.user_PASSWORD : password,
@@ -108,7 +110,44 @@ export default {
     virtualLogout() {
       localStorage.removeItem("Flag")
     },
-    submitForm(formName) {
+    submitForm1(formName) {
+      console.log("submitForm1")
+      const _this = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.loginForm.rememberMe) {
+            Cookies.set('username1', this.loginForm.user_NAME, {expires: 30})
+            Cookies.set('password1', this.loginForm.user_PASSWORD, {expires: 30})
+            Cookies.set('rememberMe1', this.loginForm.rememberMe, {expires: 30})
+            console.log("cookie set")
+          } else {
+            Cookies.remove('username1')
+            Cookies.remove('password1')
+            Cookies.remove('rememberMe1')
+            console.log("cookie removed")
+          }
+          const objectUser = {};
+          objectUser['userName'] = this.loginForm.user_NAME;
+          objectUser['userPassword'] = this.loginForm.user_PASSWORD;
+          const user = JSON.stringify(objectUser);
+          console.log(user);
+          axios.post(
+              this.GLOBAL.BASE_URL + ':8082/user/insertUser',
+              user,
+              {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8'
+                }
+              }).then(function (response) {
+            console.log(response)
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    submitForm2(formName) {
       const _this = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -122,12 +161,12 @@ export default {
             Cookies.remove('rememberMe')
           }
           const objectUser = {};
-          objectUser['user_NAME'] = this.loginForm.user_NAME;
-          objectUser['user_PASSWORD'] = this.loginForm.user_PASSWORD;
+          objectUser['userName'] = this.loginForm.user_NAME;
+          objectUser['userPassword'] = this.loginForm.user_PASSWORD;
           const user = JSON.stringify(objectUser);
           console.log(user);
           axios.post(
-              this.GLOBAL.BASE_URL + ':8082/user/saveUser',
+              this.GLOBAL.BASE_URL + ':8082/user/checkUser',
               user,
               {
                 headers: {
