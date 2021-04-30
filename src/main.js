@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import global_ from './Base.vue'
+import ElementUI from 'element-ui'
 Vue.prototype.GLOBAL = global_;
 axios.defaults.baseURL=global_.BASE_URL;
 
@@ -32,12 +33,11 @@ router.beforeEach((to, from, next) => {
     //如果已登录，还想想进入登录注册界面，则定向回首页
     if (!to.meta.isLogin) {
       //iViewUi友好提示
-      this.$message('请先退出登录')
-      next({
-        path: '/login'
-      })
+      // ElementUI.Message('请先退出登录')
+      // next({
+      //   path: '/login'
+      // })
     }
-
     //如果登录标志不存在，即未登录
   }else{
 
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
         path: '/login',
       })
       //iViewUi友好提示
-      this.$message('请先登录')
+      ElementUI.Message('请先登录')
       //用户进入无需登录的界面，则跳转继续
     }else{
       next()

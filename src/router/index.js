@@ -30,7 +30,7 @@ const  routes = [
                 name: "用户添加",
                 component: UserAdd,
                 meta: {
-                    isLogin: false
+                    isLogin: true
                 }
             },
         ]
@@ -40,34 +40,37 @@ const  routes = [
         name: "图片检测",
         component: Index,
         children: [
-            {
-                path: "/test",
-                name: "Test",
-                component: Test,
-                meta: {
-                    isLogin: true
-                }
-            },
-            {
-                path: "/resultSend",
-                name: "ResultSend",
-                component: ResultSend,
-                meta: {
-                    isLogin: true
-                }
-            },
+            // {
+            //     path: "/test",
+            //     name: "Test",
+            //     component: Test,
+            //     meta: {
+            //         isLogin: true
+            //     }
+            // },
+            // {
+            //     path: "/resultSend",
+            //     name: "ResultSend",
+            //     component: ResultSend,
+            //     meta: {
+            //         isLogin: true
+            //     }
+            // },
             {
                 path: "/predictOne",
                 name: "快速检测",
                 component: PredictOne,
                 meta: {
-                    isLogin: true
+                    isLogin: false
                 }
             },
             {
                 path: "/login",
-                name: "Login",
-                component: Login
+                name: "登录注册",
+                component: Login,
+                meta: {
+                    isLogin: false
+                }
             },
         ]
     }
