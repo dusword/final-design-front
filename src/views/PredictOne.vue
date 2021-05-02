@@ -4,8 +4,10 @@
         class="upload-demo"
         drag
         action="http://localhost:8082/predict/onePic"
-        :data="{userId:userIdCode}"
+        :data="{userId:UserId}"
         :headers="myHeaders"
+
+        :before-upload="beforeUpload"
         :on-success="handleSuccess"
         multiple>
       <i class="el-icon-upload"></i>
@@ -44,12 +46,13 @@
 </template>
 
 <script>
+import Index from './Index.vue'
 const token =  localStorage.getItem('token')
 export default {
   name: "PredictOne",
   data() {
     return {
-      userIdCode:740064395,
+      UserId: 0,
       myHeaders: {Authorization: token},
       responseList: [],
       fileList: [],
@@ -60,6 +63,13 @@ export default {
     };
   },
   methods: {
+    beforeUpload(){
+      console.log("localStorage:"+localStorage.getItem("UserId"))
+      console.log("UserId:"+this.UserId)
+      this.UserId=localStorage.getItem("UserId")
+      console.log("localStorage:"+localStorage.getItem("UserId"))
+      console.log("UserId:"+this.UserId)
+    },
     handleSuccess(response) {
       const _this = this;
       this.responseList = response.data;

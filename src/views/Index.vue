@@ -65,6 +65,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import PredictOne from "./PredictOne";
 
 export default {
   name: "Index",
@@ -107,8 +108,8 @@ export default {
     },
     virtualLogout() {
       localStorage.removeItem("Flag")
-      localStorage.removeItem("UserId")
-      this.UserId = localStorage.getItem("UserId")
+      localStorage.setItem("UserId",0)
+      this.UserId = null
     },
     submitForm1(formName) {
       console.log("submitForm1")
