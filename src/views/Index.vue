@@ -17,12 +17,13 @@
       <el-container style="color: #eeeeee;">
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px">登录选项</i>
+            <i class="el-icon-setting" style="margin-right: 15px" v-if="UserId == null">此处登录</i>
+            <i class="el-icon-setting" style="margin-right: 15px" v-else>用户管理</i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
+              <el-dropdown-item v-if="UserId == null">
                 <el-button type="primary" style="margin: 5px" @click="dialog1Visible = true">登录</el-button>
               </el-dropdown-item>
-              <el-dropdown-item>
+              <el-dropdown-item v-else>
                 <el-button type="primary" style="margin: 5px" @click="virtualLogout()">登出</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -47,14 +48,14 @@
                 <el-button type="primary" @click="submitForm1('loginForm')">注册</el-button>
                 <el-button type="primary" @click="submitForm2('loginForm')">登录</el-button>
                 <el-button @click="resetForm('loginForm')">重置</el-button>
-                <el-button @click="test()">测试</el-button>
+<!--                <el-button @click="test()">测试</el-button>-->
                 <el-checkbox v-model="loginForm.rememberMe" label="记住我" class="rememberMe"></el-checkbox>
               </el-form-item>
             </el-form>
-            <span slot="footer" class="dialog-footer">
-    <el-button @click="dialog1Visible=false">取 消</el-button>
-    <el-button type="primary" @click="dialog1Visible=false">确 定</el-button>
-  </span>
+<!--            <span slot="footer" class="dialog-footer">-->
+<!--    <el-button @click="dialog1Visible=false">取 消</el-button>-->
+<!--    <el-button type="primary" @click="dialog1Visible=false">确 定</el-button>-->
+<!--  </span>-->
           </el-dialog>
         </el-main>
       </el-container>
@@ -73,6 +74,7 @@ export default {
   data() {
     return {
       dialog1Visible: false,
+      UserId: localStorage.getItem("UserId"),
       loginForm: {
         user_NAME: '',
         user_PASSWORD: '',
@@ -105,6 +107,8 @@ export default {
     },
     virtualLogout() {
       localStorage.removeItem("Flag")
+      localStorage.removeItem("UserId")
+      this.UserId = localStorage.getItem("UserId")
     },
     submitForm1(formName) {
       console.log("submitForm1")
@@ -136,6 +140,13 @@ export default {
                 }
               }).then(function (response) {
             console.log(response)
+            if (response.data === 0) {
+              _this.$message("用户名已存在，请重新输入用户名！")
+              _this.resetForm(formName)
+            } else {
+              _this.$message("注册成功！正在登陆")
+              _this.submitForm2(formName)
+            }
           })
         } else {
           console.log('error submit!!');
@@ -170,15 +181,22 @@ export default {
                 headers: {
                   'Content-Type': 'application/json;charset=UTF-8'
                 }
-              }).then((response)=> {
+              }).then((response) => {
             console.log(response)
-            if (response.data === 1){
+            if (response.data !== 0) {
               this.$store.dispatch("userLogin", true);
               //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
               //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
               localStorage.setItem("Flag", "isLogin");
-              _this.$message("登陆成功！")
-              _this.$data.dialog1Visible=false;
+              localStorage.setItem("UserId", response.data);
+              console.log("UserId:" + localStorage.getItem("UserId"))
+              _this.$message("UserId:" + localStorage.getItem("UserId") + " 登陆成功！")
+              _this.$data.dialog1Visible = false;
+              _this.UserId=localStorage.getItem("UserId");
+            } else {
+              _this.$message("登陆失败！")
+              console.log('error submit!!');
+              return false;
             }
           })
         } else {
