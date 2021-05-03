@@ -7,6 +7,7 @@ import ResultSend from '../views/ResultSend'
 import Index from '../views/Index'
 import PredictOne from "../views/PredictOne"
 import Login from "../views/Login";
+import MultiUpload from "@/views/MultiUpload";
 
 Vue.use(VueRouter)
 
@@ -48,14 +49,14 @@ const  routes = [
             //         isLogin: true
             //     }
             // },
-            // {
-            //     path: "/resultSend",
-            //     name: "ResultSend",
-            //     component: ResultSend,
-            //     meta: {
-            //         isLogin: true
-            //     }
-            // },
+            {
+                path: "/multiUpload",
+                name: "批量检测",
+                component: MultiUpload,
+                meta: {
+                    isLogin: true
+                }
+            },
             {
                 path: "/predictOne",
                 name: "快速检测",

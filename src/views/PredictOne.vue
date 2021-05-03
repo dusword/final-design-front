@@ -5,15 +5,11 @@
         drag
         action="http://localhost:8082/predict/onePic"
         :data="{userId:UserId}"
-        :headers="myHeaders"
-
         :before-upload="beforeUpload"
-        :on-success="handleSuccess"
-        multiple>
+        :on-success="handleSuccess">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <div class="el-upload__tip" slot="tip">只能上传1张jpg文件</div>
-      <!--      <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>-->
     </el-upload>
 
     <el-dialog
@@ -46,14 +42,11 @@
 </template>
 
 <script>
-import Index from './Index.vue'
-const token =  localStorage.getItem('token')
 export default {
   name: "PredictOne",
   data() {
     return {
       UserId: 0,
-      myHeaders: {Authorization: token},
       responseList: [],
       fileList: [],
       dialog1Visible: false,
