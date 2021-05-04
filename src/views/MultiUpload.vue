@@ -3,7 +3,7 @@
       class="upload-demo"
       ref="upload"
       action="http://localhost:8082/predict/multiPic"
-      :data="{userId:UserId}"
+      :data="{userId:UserId,message:input}"
       multiple
       :limit="10"
       :on-preview="handlePreview"
@@ -17,6 +17,7 @@
     </template>
     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
     <el-button style="margin-left: 10px;" size="small" type="danger" @click="deleteFileList">清空列表</el-button>
+    <el-input style="margin-top: 10px;"  v-model="input" placeholder="请输入备注"></el-input>
     <template #tip>
       <div class="el-upload__tip">
         最多同时选择10张图片
@@ -30,7 +31,8 @@ export default {
   name: "MultiUpload",
   data() {
     return {
-      UserId: 0,
+      input:'',
+      UserId: localStorage.getItem("UserId"),
       responseList: [],
       fileList: [],
       dialog1Visible: false,
@@ -49,11 +51,8 @@ export default {
     handleSuccess(response) {
       const _this = this;
       this.responseList = response.data;
-      console.log(response)
-      this.$message.success('图片分析成功')
-      this.$data.response = response
-      // console.log(response.base64_result)
-      console.log(response.final_result)
+      console.log(response);
+      this.$message.success('后端返回'+response)
     },
     submitUpload() {
       this.$refs.upload.submit();

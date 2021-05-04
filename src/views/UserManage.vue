@@ -16,18 +16,18 @@
         style="width: 100%">
       <el-table-column
           fixed
-          prop="user_ID"
+          prop="userId"
           label="ID"
           style="height: auto"
           width="100">
       </el-table-column>
       <el-table-column
-          prop="user_NAME"
+          prop="userName"
           label="用户名"
           width="300">
       </el-table-column>
       <el-table-column
-          prop="user_PASSWORD"
+          prop="userPassword"
           label="密码"
           width="200">
       </el-table-column>
@@ -55,19 +55,19 @@ export default {
     },
     page(currentPage) {
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL+':8082/user/findAll/' + currentPage + '/6').then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL+':8082/user/findUserList/' + currentPage + '/6').then(function (response) {
         console.log(response)
-        _this.total = response.data.totalElements
-        _this.tableData = response.data.content
+        _this.total = response.data.total
+        _this.tableData = response.data.records
       })
     }
   },
   created() {
     const _this = this
-    axios.get(this.GLOBAL.BASE_URL+':8082/user/findAll/1/6').then(function (response) {
+    axios.get(this.GLOBAL.BASE_URL+':8082/user/findUserList/1/6').then(function (response) {
       console.log(response)
-      _this.total = response.data.totalElements
-      _this.tableData = response.data.content
+      _this.total = response.data.total
+      _this.tableData = response.data.records
     })
   },
   data() {

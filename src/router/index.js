@@ -8,6 +8,7 @@ import Index from '../views/Index'
 import PredictOne from "../views/PredictOne"
 import Login from "../views/Login";
 import MultiUpload from "@/views/MultiUpload";
+import TaskManage from "@/views/TaskManage";
 
 Vue.use(VueRouter)
 
@@ -27,9 +28,9 @@ const  routes = [
                 }
             },
             {
-                path: "/userAdd",
-                name: "用户添加",
-                component: UserAdd,
+                path: "/taskManage",
+                name: "任务查询",
+                component: TaskManage,
                 meta: {
                     isLogin: true
                 }

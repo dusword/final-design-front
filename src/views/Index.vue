@@ -18,7 +18,7 @@
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px" v-if="UserId == null">此处登录</i>
-            <i class="el-icon-setting" style="margin-right: 15px" v-else>用户管理</i>
+            <i class="el-icon-setting" style="margin-right: 15px" v-else>用户管理 {{UserId}}</i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-if="UserId == null">
                 <el-button type="primary" style="margin: 5px" @click="dialog1Visible = true">登录</el-button>
@@ -42,7 +42,7 @@
                 <el-input v-model="loginForm.user_NAME"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="user_PASSWORD">
-                <el-input v-model="loginForm.user_PASSWORD"></el-input>
+                <el-input v-model="loginForm.user_PASSWORD" show-password></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm1('loginForm')">注册</el-button>
