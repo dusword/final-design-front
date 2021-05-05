@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
     //用户想进入需要登录的页面，则定向回登录界面
     if(to.meta.isLogin){
       next({
-        path: '/login',
+        path: '/info',
       })
       //iViewUi友好提示
       ElementUI.Message('请先登录')

@@ -9,24 +9,17 @@ import PredictOne from "../views/PredictOne"
 import Login from "../views/Login";
 import MultiUpload from "@/views/MultiUpload";
 import TaskManage from "@/views/TaskManage";
+import Info from "@/views/Info";
 
 Vue.use(VueRouter)
 
 const  routes = [
     {
         path: "/",
-        name: "用户管理",
+        name: "任务管理",
         component: Index,
-        redirect:"/login",
+        redirect:"/info",
         children: [
-            {
-                path: "/userManage",
-                name: "用户查询",
-                component: UserManage,
-                meta: {
-                    isLogin: true
-                }
-            },
             {
                 path: "/taskManage",
                 name: "任务查询",
@@ -42,14 +35,6 @@ const  routes = [
         name: "图片检测",
         component: Index,
         children: [
-            // {
-            //     path: "/test",
-            //     name: "Test",
-            //     component: Test,
-            //     meta: {
-            //         isLogin: true
-            //     }
-            // },
             {
                 path: "/multiUpload",
                 name: "批量检测",
@@ -66,10 +51,17 @@ const  routes = [
                     isLogin: false
                 }
             },
+        ]
+    },
+    {
+        path: "/help",
+        name: "帮助",
+        component: Index,
+        children: [
             {
-                path: "/login",
-                name: "登录注册",
-                component: Login,
+                path: "/info",
+                name: "帮助",
+                component: Info,
                 meta: {
                     isLogin: false
                 }
