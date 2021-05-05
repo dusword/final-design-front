@@ -52,7 +52,7 @@
           width="200">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
 
@@ -81,6 +81,18 @@
     <el-button type="primary" @click="dialog2Visible = false">确 定</el-button>
   </span>
     </el-dialog>
+    <el-dialog
+        title="请确认是否删除"
+        :visible.sync="dialog3Visible"
+        width="60%"
+        :before-close="handleClose">
+      <span></span>
+      您将要删除编号为{{this.$data.handlePredictedFileId}}的任务
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialog3Visible = false">取 消</el-button>
+    <el-button type="primary" @click="handleDeleteDo()">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 
 </template>
@@ -103,6 +115,26 @@ export default {
         }
       })
     },
+    handleDelete(row){
+      console.log(row.predictedFileId);
+      this.$data.handlePredictedFileId=row.predictedFileId;
+      this.$data.dialog3Visible=true;
+    },
+    handleDeleteDo(){
+      const _this = this
+      console.log(this.handlePredictedFileId)
+      axios.post(this.GLOBAL.BASE_URL + ':8082/task/deleteTask/' + this.handlePredictedFileId).then(function (response) {
+        console.log(response)
+        if (response.data === 1){
+          _this.$message.success("删除成功！")
+          _this.page(_this.currentPage)
+          _this.dialog3Visible=false
+        }else {
+          _this.$message.success("删除失败！")
+        }
+      })
+
+    },
     handleClose(done) {
       this.$confirm('确认关闭？')
           .then(_ => {
@@ -117,6 +149,7 @@ export default {
         console.log(response)
         _this.total = response.data.total
         _this.tableData = response.data.records
+        _this.currentPage=currentPage
       })
     }
   },
@@ -137,8 +170,11 @@ export default {
       fileList: [],
       dialog1Visible: false,
       dialog2Visible: false,
+      dialog3Visible: false,
+      handlePredictedFileId: null,
       response: null,
       base64: null,
+      currentPage: null,
     }
   }
 }
