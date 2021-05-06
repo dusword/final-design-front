@@ -174,7 +174,7 @@ export default {
       handlePredictedFileId: null,
       response: null,
       base64: null,
-      currentPage: null,
+      currentPage: 1,
     }
   }
 }
