@@ -46,7 +46,6 @@ router.beforeEach((to, from, next) => {
       next({
         path: '/info',
       })
-      //iViewUi友好提示
       ElementUI.Message('请先登录')
       //用户进入无需登录的界面，则跳转继续
     }else{

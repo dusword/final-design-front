@@ -57,6 +57,7 @@
       </el-table-column>
 
     </el-table>
+
     <el-dialog
         title="分析结果"
         :visible.sync="dialog1Visible"
