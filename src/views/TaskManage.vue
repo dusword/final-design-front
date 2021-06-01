@@ -1,7 +1,13 @@
 <template>
   <div id="taskManage">
+
+
+      <el-input style="margin-left: 10px;width: 500px"  v-model="input" placeholder="请输入查询备注"></el-input>
+      <el-button style="margin-left: 10px;" size="small" type="success" @click="search">查询</el-button>
+      <el-button style="margin-left: 10px;" size="small" type="danger" @click="endSearch">取消搜索</el-button>
+
     <el-pagination
-        style="height: 30px;float: left"
+        style="height: 30px;float: right"
         background
         layout="prev, pager, next"
         page-size="8"
@@ -102,6 +108,23 @@
 export default {
   name: "TaskManage",
   methods: {
+    endSearch(){
+      const _this = this
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId).then(function (response) {
+        console.log(response)
+        _this.total = response.data.total
+        _this.tableData = response.data.records
+      })
+      _this.input=''
+    },
+    search(){
+      const _this = this
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId+'/'+this.input).then(function (response) {
+        console.log(response)
+        _this.total = response.data.total
+        _this.tableData = response.data.records
+      })
+    },
     handleClick(row) {
       console.log(row.predictedFileId);
       const predictedFileId =row.predictedFileId
@@ -146,7 +169,7 @@ export default {
     },
     page(currentPage) {
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/' + currentPage + '/8/' + this.UserId).then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/' + currentPage + '/8/' + this.UserId+'/'+this.input).then(function (response) {
         console.log(response)
         _this.total = response.data.total
         _this.tableData = response.data.records
@@ -164,6 +187,7 @@ export default {
   },
   data() {
     return {
+      input:'',
       total: null,
       tableData: null,
       UserId: localStorage.getItem("UserId"),
