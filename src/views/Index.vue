@@ -190,7 +190,8 @@ export default {
               //Vuex在用户刷新的时候userLogin会回到默认值false，所以我们需要用到HTML5储存
               //我们设置一个名为Flag，值为isLogin的字段，作用是如果Flag有值且为isLogin的时候，证明用户已经登录了。
               localStorage.setItem("Flag", "isLogin");
-              localStorage.setItem("UserId", response.data);
+              localStorage.setItem("UserId", response.data.userId);
+              localStorage.setItem("Authority", response.data.authority);
               console.log("UserId:" + localStorage.getItem("UserId"))
               _this.$message("UserId:" + localStorage.getItem("UserId") + " 登陆成功！")
               _this.$data.dialog1Visible = false;

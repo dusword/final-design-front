@@ -108,9 +108,12 @@
 export default {
   name: "TaskManage",
   methods: {
+    test(){
+        this.$message(localStorage.getItem("Authority"))
+    },
     endSearch(){
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId).then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId+'/'+localStorage.getItem("Authority")).then(function (response) {
         console.log(response)
         _this.total = response.data.total
         _this.tableData = response.data.records
@@ -119,7 +122,7 @@ export default {
     },
     search(){
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId+'/'+this.input).then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId+'/'+this.input+'/'+localStorage.getItem("Authority")).then(function (response) {
         console.log(response)
         _this.total = response.data.total
         _this.tableData = response.data.records
@@ -169,7 +172,7 @@ export default {
     },
     page(currentPage) {
       const _this = this
-      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/' + currentPage + '/8/' + this.UserId+'/'+this.input).then(function (response) {
+      axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/' + currentPage + '/8/' + this.UserId+'/'+this.input+'/'+localStorage.getItem("Authority")).then(function (response) {
         console.log(response)
         _this.total = response.data.total
         _this.tableData = response.data.records
@@ -179,7 +182,7 @@ export default {
   },
   created() {
     const _this = this
-    axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId).then(function (response) {
+    axios.get(this.GLOBAL.BASE_URL + ':8082/task/findTaskList/1/8/' + this.UserId+'/'+localStorage.getItem("Authority")).then(function (response) {
       console.log(response)
       _this.total = response.data.total
       _this.tableData = response.data.records
